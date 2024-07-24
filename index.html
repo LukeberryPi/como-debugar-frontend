@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="styles.css" />
-    <title>Depuração de Frontend 101</title>
+    <title>Como Debugar Frontend</title>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -50,7 +50,7 @@
             .writeText(clipboardText)
             .then(() => {
               alert(
-                `As seguintes perguntas foram copiadas para sua área de transferência para ajudá-lo a descrever seu problema:\n\n"${clipboardText}"\n\nResponda-as em um parágrafo e envie para um chat em grupo (preferido) ou como uma mensagem privada para obter ajuda.`
+                `As seguintes perguntas foram copiadas para sua área de transferência para ajudar você a descrever seu problema:\n\n"${clipboardText}"\n\nPara obter ajuda, responda-as em um parágrafo e envie para um chat em grupo (preferencialmente) ou como uma mensagem privada.`
               );
             })
             .catch((err) => {
@@ -84,7 +84,7 @@
       <h2>se houver uma mensagem de erro</h2>
       <div>
         <input type="checkbox" id="read-error-message" />
-        <label for="read-error-message">você a leu? (~30s)</label>
+        <label for="read-error-message">você leu a mensagem? (~30s)</label>
       </div>
       <div>
         <input type="checkbox" id="asked-in-public" />
@@ -104,7 +104,7 @@
       </div>
       <div>
         <input type="checkbox" id="looked-up-error" />
-        <label for="looked-up-error">você procurou o erro? (~15m)</label>
+        <label for="looked-up-error">você pesquisou o erro? (~15m)</label>
       </div>
 
       <h2>as coisas pararam de funcionar "sem motivo"</h2>
@@ -147,7 +147,7 @@
         >
       </div>
 
-      <h2>erros específicos mas comuns</h2>
+      <h2>erros específicos porém comuns</h2>
       <div>
         <input type="checkbox" id="cleared-cache" />
         <label for="cleared-cache">você limpou o cache? (~10s)</label>
@@ -161,7 +161,7 @@
       <div>
         <input type="checkbox" id="sync-correct-branch" />
         <label for="sync-correct-branch"
-          >você está em sincronia com o branch correto? (~1m)</label
+          >você está sincronizado com a branch correta? (~1m)</label
         >
       </div>
       <div>
@@ -177,7 +177,7 @@
       <div>
         <input type="checkbox" id="correct-role-permissions" />
         <label for="correct-role-permissions"
-          >seu usuário tem as permissões de função corretas? (~5m)</label
+          >seu usuário ativo tem o cargo correto? (~5m)</label
         >
       </div>
 
