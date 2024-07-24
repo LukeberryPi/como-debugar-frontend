@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Depuração de Frontend 101</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const deselectAllButton = document.getElementById("deselectAll");
+
+        checkboxes.forEach((checkbox) => {
+          const state = sessionStorage.getItem(checkbox.id);
+          if (state !== null) {
+            checkbox.checked = JSON.parse(state);
+          }
+          checkbox.addEventListener("change", () => {
+            sessionStorage.setItem(checkbox.id, checkbox.checked);
+          });
+        });
+
+        deselectAllButton.addEventListener("click", () => {
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+            sessionStorage.setItem(checkbox.id, false);
+          });
+        });
+
+        const helpButton = document.getElementById("helpButton");
+
+        const clipboardText = `o que você está tentando fazer. o que deu errado. o que você tentou até agora.`;
+
+        function updateButtonState() {
+          const allChecked = Array.from(checkboxes).every(
+            (checkbox) => checkbox.checked
+          );
+          helpButton.disabled = !allChecked;
+        }
+
+        updateButtonState();
+
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", updateButtonState);
+        });
+
+        helpButton.addEventListener("click", () => {
+          navigator.clipboard
+            .writeText(clipboardText)
+            .then(() => {
+              alert(
+                `As seguintes perguntas foram copiadas para sua área de transferência para ajudá-lo a descrever seu problema:\n\n"${clipboardText}"\n\nResponda-as em um parágrafo e envie para um chat em grupo (preferido) ou como uma mensagem privada para obter ajuda.`
+              );
+            })
+            .catch((err) => {
+              console.error("Falha ao copiar texto: ", err);
+              alert(
+                "Falha ao copiar texto para a área de transferência. Por favor, tente novamente."
+              );
+            });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <div>
+        <h1>Depuração de Frontend 101</h1>
+        <p>
+          Esta página é inspirada por
+          <a
+            href="https://lukeberrypi.vercel.app/articles/frontend-debugging-101"
+            target="_blank"
+            >este artigo</a
+          >, que explica mais sobre estas perguntas. O código para este site
+          está
+          <a href="https://github.com/LukeberryPi/frontend-debugging-101"
+            >aqui</a
+          >.
+        </p>
+        <button id="deselectAll">Desmarcar todos</button>
+      </div>
+      <h2>se houver uma mensagem de erro</h2>
+      <div>
+        <input type="checkbox" id="read-error-message" />
+        <label for="read-error-message">você a leu? (~30s)</label>
+      </div>
+      <div>
+        <input type="checkbox" id="asked-in-public" />
+        <label for="asked-in-public">você perguntou em público? (~2m)</label>
+      </div>
+      <div>
+        <input type="checkbox" id="searched-codebase" />
+        <label for="searched-codebase"
+          >você procurou na base de código por uma implementação? (~1m)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="accessed-documentation" />
+        <label for="accessed-documentation"
+          >você acessou a documentação? (~15m)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="looked-up-error" />
+        <label for="looked-up-error">você procurou o erro? (~15m)</label>
+      </div>
+
+      <h2>as coisas pararam de funcionar "sem motivo"</h2>
+      <div>
+        <input type="checkbox" id="saved-file" />
+        <label for="saved-file">você salvou o arquivo? (~5s)</label>
+      </div>
+      <div>
+        <input type="checkbox" id="returning-something" />
+        <label for="returning-something"
+          >você está retornando algo? (~1m)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="right-url" />
+        <label for="right-url">você está na URL correta? (~5s)</label>
+      </div>
+      <div>
+        <input type="checkbox" id="connected-vpn" />
+        <label for="connected-vpn">você está conectado à VPN? (~10s)</label>
+      </div>
+
+      <h2>desligue e ligue novamente</h2>
+      <div>
+        <input type="checkbox" id="restart-local-server" />
+        <label for="restart-local-server"
+          >você reiniciou o servidor local? (~30s)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="restart-ts-server" />
+        <label for="restart-ts-server"
+          >você reiniciou o Servidor TypeScript? (~10s)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="reinstall-node-modules" />
+        <label for="reinstall-node-modules"
+          >você reinstalou os node_modules? (~1m)</label
+        >
+      </div>
+
+      <h2>erros específicos mas comuns</h2>
+      <div>
+        <input type="checkbox" id="cleared-cache" />
+        <label for="cleared-cache">você limpou o cache? (~10s)</label>
+      </div>
+      <div>
+        <input type="checkbox" id="correct-file-extension" />
+        <label for="correct-file-extension"
+          >você está usando a extensão de arquivo correta? (~10s)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="sync-correct-branch" />
+        <label for="sync-correct-branch"
+          >você está em sincronia com o branch correto? (~1m)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="correct-imports" />
+        <label for="correct-imports">seus imports estão corretos? (~30s)</label>
+      </div>
+      <div>
+        <input type="checkbox" id="anonymous-window" />
+        <label for="anonymous-window"
+          >isso acontece em uma janela anônima? (~2m)</label
+        >
+      </div>
+      <div>
+        <input type="checkbox" id="correct-role-permissions" />
+        <label for="correct-role-permissions"
+          >seu usuário tem as permissões de função corretas? (~5m)</label
+        >
+      </div>
+
+      <h2>ainda não resolvi, e agora?</h2>
+      <div>
+        <input type="checkbox" id="take-a-break" />
+        <label for="take-a-break">você fez uma pausa? (~10m)</label>
+      </div>
+      <button style="margin-top: 24px" id="helpButton">
+        Estou pronto para pedir ajuda
+      </button>
+    </main>
+  </body>
+</html>
